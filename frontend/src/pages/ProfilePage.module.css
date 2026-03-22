@@ -1,0 +1,33 @@
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--indigo), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 26px; font-weight: 800;
+  flex-shrink: 0;
+}
+.profileName { font-family: var(--font-display); font-size: 20px; font-weight: 700; }
+.profileEmail { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+.profileStats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+.tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 16px;
+  background: transparent; border: none; border-bottom: 2px solid transparent;
+  color: var(--text-secondary); cursor: pointer;
+  font-size: 14px; font-family: var(--font-body);
+  transition: all 0.2s; margin-bottom: -1px;
+}
+.tab:hover { color: var(--text-primary); }
+.activeTab { color: var(--indigo-light); border-bottom-color: var(--indigo-light); }
+
+.formCard { padding: 24px; }
+.formTitle { font-family: var(--font-display); font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+.form { display: flex; flex-direction: column; gap: 18px; }

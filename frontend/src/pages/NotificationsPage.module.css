@@ -1,0 +1,30 @@
+.list { display: flex; flex-direction: column; gap: 8px; }
+
+.notifCard {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  animation: fadeUp 0.3s ease;
+}
+.notifCard:hover { background: var(--bg-elevated); border-color: var(--border-bright); }
+.notifCard.unread { border-left: 3px solid var(--indigo-light); background: rgba(79,53,243,0.05); }
+
+.notifIcon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.notifBody { flex: 1; min-width: 0; }
+.notifType { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 3px; }
+.notifMsg { font-size: 13px; line-height: 1.4; }
+.notifTime { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+.notifActions { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.unreadDot { width: 8px; height: 8px; border-radius: 50%; background: var(--indigo-light); }
+.deleteBtn {
+  background: transparent; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 4px; border-radius: 4px; display: flex;
+  opacity: 0; transition: opacity 0.2s, color 0.2s;
+}
+.notifCard:hover .deleteBtn { opacity: 1; }
+.deleteBtn:hover { color: var(--coral); }

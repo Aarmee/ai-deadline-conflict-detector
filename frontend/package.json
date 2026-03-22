@@ -1,0 +1,30 @@
+{
+  "name": "deadline-conflict-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1",
+    "axios": "^1.7.2",
+    "zustand": "^4.5.2",
+    "@tanstack/react-query": "^5.40.0",
+    "react-hook-form": "^7.51.5",
+    "date-fns": "^3.6.0",
+    "recharts": "^2.12.7",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.395.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.1"
+  }
+}

@@ -1,0 +1,112 @@
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.greeting { font-size: 14px; color: var(--text-secondary); }
+.name { font-family: var(--font-display); font-size: 32px; font-weight: 800; line-height: 1.1; }
+.date { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.headerBadge {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 99px;
+  background: rgba(168,255,62,0.1);
+  border: 1px solid rgba(168,255,62,0.3);
+  color: var(--lime); font-size: 12px; font-weight: 600;
+}
+.headerBadge::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 0 var(--lime);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 900px) { .statsGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .statsGrid { grid-template-columns: 1fr; } }
+
+.statCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.statCard:hover { transform: translateY(-2px); border-color: var(--border-bright); }
+
+.statIcon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.statValue { font-family: var(--font-display); font-size: 26px; font-weight: 800; line-height: 1; }
+.statLabel { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.statSub   { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.midRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 768px) { .midRow { grid-template-columns: 1fr; } }
+
+.workloadCard, .riskCard {
+  padding: 22px;
+}
+
+.cardTitle {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+
+.workloadWrap { display: flex; flex-direction: column; gap: 10px; }
+.workloadHeader { display: flex; justify-content: space-between; font-size: 13px; }
+.workloadTrack { height: 10px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
+.workloadFill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+.workloadHint { font-size: 12px; color: var(--text-muted); }
+
+.riskBars { display: flex; flex-direction: column; gap: 14px; }
+.riskRow { display: flex; align-items: center; gap: 12px; }
+.riskTrack { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
+.riskFill { height: 100%; border-radius: 99px; transition: width 0.8s ease; min-width: 4px; }
+.riskCount { font-size: 13px; font-weight: 700; min-width: 20px; text-align: right; }
+
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 768px) { .bottomRow { grid-template-columns: 1fr; } }
+
+.tableCard { padding: 22px; }
+
+.taskList { display: flex; flex-direction: column; gap: 2px; }
+.taskRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+.taskRow:hover { background: rgba(255,255,255,0.03); }
+.taskInfo { flex: 1; min-width: 0; margin-right: 12px; }
+.taskTitle {
+  font-size: 13px; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.taskMeta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }

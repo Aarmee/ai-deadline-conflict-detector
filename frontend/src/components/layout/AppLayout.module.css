@@ -1,0 +1,181 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  transition: width 0.25s ease;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 100;
+}
+.sidebar.open      { width: 240px; }
+.sidebar.collapsed { width: 64px; }
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid var(--border);
+  min-height: 64px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--indigo-light);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.logo span { background: linear-gradient(135deg, var(--indigo-light), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.toggleBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.toggleBtn:hover { color: var(--text-primary); background: var(--bg-elevated); }
+
+.nav {
+  flex: 1;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+.navItem:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+.navItem.active {
+  background: rgba(79,53,243,0.2);
+  color: var(--indigo-light);
+  border: 1px solid rgba(79,53,243,0.3);
+}
+
+.navIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--coral);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 99px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.navLabel { overflow: hidden; display: flex; align-items: center; gap: 6px; flex: 1; }
+
+.newBadge {
+  font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+  color: #0A0A14; padding: 1px 5px; border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.sidebarFooter {
+  border-top: 1px solid var(--border);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--indigo), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.userText { overflow: hidden; }
+.userName  { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.userEmail { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.logoutBtn:hover { background: rgba(255,92,92,0.1); color: var(--coral); border-color: rgba(255,92,92,0.2); }
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar.open { width: 200px; }
+}

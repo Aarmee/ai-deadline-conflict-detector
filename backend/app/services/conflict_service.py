@@ -56,7 +56,8 @@ async def run_conflict_detection(db: AsyncSession, user: User) -> List[Conflict]
         days_remaining = max((deadline - date.today()).days, 1)
         available_hours = user.daily_hours_available * days_remaining
 
-        if total_effort > available_hours * 0.85:  # 85% threshold
+        # Conflict if total effort exceeds 60% of available time (realistic threshold)
+        if total_effort > available_hours * 0.60:
             severity = ConflictSeverity.CRITICAL if total_effort > available_hours else ConflictSeverity.WARNING
             conflict = Conflict(
                 user_id=user.id,

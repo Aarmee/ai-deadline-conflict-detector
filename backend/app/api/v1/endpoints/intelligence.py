@@ -443,7 +443,7 @@ async def get_productivity(
     completed = row.completed or 0
     missed = row.missed or 0
     total = completed + missed
-    rate = round(completed / total, 4) if total > 0 else 1.0
+    rate = round(completed / total, 4) if total > 0 else 0.0
 
     return ProductivityResponse(
         completion_rate=rate,
