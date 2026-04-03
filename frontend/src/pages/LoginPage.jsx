@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import useAuthStore from '../store/authStore'
+import useAdminAuthStore from '../store/adminAuthStore'
+import { adminAPI } from '../services/api'
 import { Zap, Mail, Lock, ArrowRight } from 'lucide-react'
 import styles from './AuthPage.module.css'
 
@@ -10,17 +12,35 @@ export default function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const login = useAuthStore(s => s.login)
   const loading = useAuthStore(s => s.loading)
+  const adminLogin = useAdminAuthStore(s => s.login)
   const navigate = useNavigate()
   const [serverError, setServerError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async (data) => {
     setServerError('')
+    setIsLoading(true)
     try {
+      // Try admin login — backend will reject non-admin credentials with 401
+      // If it succeeds, the JWT will have role: admin
+      try {
+        await adminLogin(data.email, data.password)
+        toast.success('Welcome, Admin!')
+        navigate('/admin/dashboard')
+        return
+      } catch (adminErr) {
+        // Only fall through if it's a 401 (wrong credentials for admin)
+        // Any other error (network, 500) should surface
+        if (!adminErr.response || adminErr.response.status !== 401) throw adminErr
+      }
+      // Regular user login
       await login(data.email, data.password)
       toast.success('Welcome back!')
       navigate('/dashboard')
     } catch (err) {
-      setServerError(err.response?.data?.detail || 'Login failed')
+      setServerError(err.response?.data?.detail || 'Invalid email or password')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -71,8 +91,8 @@ export default function LoginPage() {
             {errors.password && <span className="form-error">{errors.password.message}</span>}
           </div>
 
-          <button type="submit" className={`btn btn-primary ${styles.submitBtn}`} disabled={loading}>
-            {loading ? <span className="spinner" /> : <>Sign In <ArrowRight size={16} /></>}
+          <button type="submit" className={`btn btn-primary ${styles.submitBtn}`} disabled={isLoading || loading}>
+            {(isLoading || loading) ? <span className="spinner" /> : <>Sign In <ArrowRight size={16} /></>}
           </button>
         </form>
 

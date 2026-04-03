@@ -2,12 +2,13 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import useAuthStore from '../../store/authStore'
+import useThemeStore from '../../store/themeStore'
 import { notificationsAPI } from '../../services/api'
 import AIAssistant from '../ui/AIAssistant'
 import {
   LayoutDashboard, CheckSquare, AlertTriangle, Sparkles,
   BarChart3, Bell, User, LogOut, Zap, Menu, X,
-  Kanban, Sun
+  Kanban, Sun, Moon
 } from 'lucide-react'
 import styles from './AppLayout.module.css'
 
@@ -28,6 +29,7 @@ export default function AppLayout() {
   const logout   = useAuthStore(s => s.logout)
   const user     = useAuthStore(s => s.user)
   const navigate = useNavigate()
+  const { theme, toggleTheme } = useThemeStore()
 
   const { data: notifData } = useQuery({
     queryKey: ['notifications-count'],
@@ -84,6 +86,10 @@ export default function AppLayout() {
           <button className={styles.logoutBtn} onClick={handleLogout} title="Logout">
             <LogOut size={16} />
             {open && <span>Logout</span>}
+          </button>
+          <button className={styles.themeBtn} onClick={toggleTheme} title="Toggle theme">
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            {open && <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
           </button>
         </div>
       </aside>

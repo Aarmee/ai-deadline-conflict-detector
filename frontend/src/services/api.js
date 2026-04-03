@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
   baseURL: '/api/v1',
-  timeout: 15000,
+  timeout: 60000,  // 60s for AI calls
 })
 
 // Attach JWT token to every request
@@ -39,11 +39,11 @@ api.interceptors.response.use(
 
 // ── Auth ──────────────────────────────────────────────────
 export const authAPI = {
-  register: d => api.post('/auth/register', d),
-  login:    d => api.post('/auth/login', d),
-  me:       ()  => api.get('/auth/me'),
-  updateMe: d => api.patch('/auth/me', d),
-  changePassword: d => api.post('/auth/change-password', d),
+  register:       d  => api.post('/auth/register', d),
+  login:          d  => api.post('/auth/login', d),
+  me:             () => api.get('/auth/me'),
+  updateMe:       d  => api.patch('/auth/me', d),
+  changePassword: d  => api.post('/auth/change-password', d),
 }
 
 // ── Tasks ─────────────────────────────────────────────────
@@ -75,23 +75,61 @@ export const conflictsAPI = {
 }
 
 export const recommendationsAPI = {
-  schedule: ()     => api.get('/recommendations/schedule'),
-  history:  ()     => api.get('/recommendations/history'),
-  accept:   id     => api.post(`/recommendations/${id}/accept`),
-  reject:   id     => api.post(`/recommendations/${id}/reject`),
+  schedule: ()   => api.get('/recommendations/schedule'),
+  history:  ()   => api.get('/recommendations/history'),
+  accept:   id   => api.post(`/recommendations/${id}/accept`),
+  reject:   id   => api.post(`/recommendations/${id}/reject`),
 }
 
 export const notificationsAPI = {
-  list:       params => api.get('/notifications', { params }),
-  markRead:   id     => api.patch(`/notifications/${id}/read`),
-  markAllRead:()     => api.post('/notifications/read-all'),
-  delete:     id     => api.delete(`/notifications/${id}`),
+  list:        params => api.get('/notifications', { params }),
+  markRead:    id     => api.patch(`/notifications/${id}/read`),
+  markAllRead: ()     => api.post('/notifications/read-all'),
+  delete:      id     => api.delete(`/notifications/${id}`),
 }
 
 export const analyticsAPI = {
   productivity: params => api.get('/analytics/productivity', { params }),
   workload:     params => api.get('/analytics/workload', { params }),
   summary:      ()     => api.get('/analytics/summary'),
+}
+
+// ── AI (goes through backend — API key never exposed) ─────
+export const aiAPI = {
+  chat:     messages  => api.post('/ai/chat', { messages }),
+  briefing: ()        => api.post('/ai/briefing'),
+}
+
+// ── Admin ─────────────────────────────────────────────────
+const adminApi = axios.create({
+  baseURL: '/api/v1',
+  timeout: 30000,
+})
+adminApi.interceptors.request.use(config => {
+  const token = localStorage.getItem('admin_token')
+  if (token) config.headers.Authorization = `Bearer ${token}`
+  return config
+})
+// Auto-redirect to login on admin 401
+adminApi.interceptors.response.use(
+  res => res,
+  err => {
+    if (err.response?.status === 401 || err.response?.status === 403) {
+      localStorage.removeItem('admin_token')
+      window.location.href = '/login'
+    }
+    return Promise.reject(err)
+  }
+)
+
+export const adminAPI = {
+  login:          d  => api.post('/admin/login', d),
+  stats:          () => adminApi.get('/admin/stats'),
+  users:          () => adminApi.get('/admin/users'),
+  toggleUser:     id => adminApi.post(`/admin/users/${id}/toggle`),
+  mlStats:        () => adminApi.get('/admin/ml/stats'),
+  conflictStats:  () => adminApi.get('/admin/conflicts/stats'),
+  activity:       () => adminApi.get('/admin/activity'),
 }
 
 export default api

@@ -144,3 +144,24 @@ async def get_current_user(
             detail="User not found",
         )
     return user
+
+
+# ─── Dependency: Get Current Admin ────────────────────────
+def get_current_admin(
+    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
+):
+    """Validates that the JWT has role: admin claim. No DB lookup needed."""
+    token = credentials.credentials
+    payload = decode_token(token)
+
+    if payload.get("type") != "access":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token type",
+        )
+    if payload.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin access required",
+        )
+    return payload

@@ -35,6 +35,36 @@
   --radius-lg: 24px;
 }
 
+/* ── Light Theme ─────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:           #F0F0F8;
+  --bg-card:      #FFFFFF;
+  --bg-elevated:  #E8E8F4;
+  --border:       rgba(0,0,0,0.08);
+  --border-bright:rgba(0,0,0,0.15);
+  --text-primary: #0A0A14;
+  --text-secondary:#555570;
+  --text-muted:   #8888AA;
+}
+
+[data-theme="light"] .glass {
+  background: rgba(255,255,255,0.7);
+  border-color: rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .input {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.12);
+  color: #0A0A14;
+}
+[data-theme="light"] .input::placeholder { color: #8888AA; }
+[data-theme="light"] .input:focus { border-color: var(--indigo-light); }
+
+[data-theme="light"] select.input option { background: #FFFFFF; color: #0A0A14; }
+
+[data-theme="light"] ::-webkit-scrollbar-track { background: #F0F0F8; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { font-size: 16px; }
