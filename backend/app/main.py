@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from app.core.config import settings
 from app.api.v1.router import api_router
 from app.ml.model import ml_service
+from app.services.scheduler import start_scheduler, stop_scheduler
 
 
 # ─── Lifespan (startup/shutdown) ──────────────────────────
@@ -12,14 +13,14 @@ from app.ml.model import ml_service
 async def lifespan(app: FastAPI):
     # Startup
     print(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
-    
-    # Load ML model (trains if not found)
     ml_service.load_model()
     print("ML model ready.")
-    
+    start_scheduler()
+
     yield
-    
+
     # Shutdown
+    stop_scheduler()
     print("Shutting down...")
 
 

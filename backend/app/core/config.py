@@ -23,8 +23,15 @@ class Settings(BaseSettings):
 
     # Admin credentials — stored in .env only, no DB needed
     ADMIN_EMAIL: str = "admin@deadlineiq.com"
-    ADMIN_PASSWORD: str = "Admin@123456"
+    ADMIN_PASSWORD: str = "Admin@123"
     ADMIN_SECRET_KEY: str = "admin-super-secret-change-this"
+
+    # Email / SMTP
+    SMTP_HOST: str = "smtp.gmail.com"
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    EMAILS_ENABLED: bool = False  # set True in .env once SMTP creds are added
 
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
 

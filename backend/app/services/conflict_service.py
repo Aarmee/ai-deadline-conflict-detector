@@ -12,8 +12,10 @@ from collections import defaultdict
 from typing import List, Dict
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+import asyncio
 
 from app.models.models import Task, Conflict, ConflictType, ConflictSeverity, TaskStatus, User, Notification, NotificationType
+from app.services.email_service import send_conflict_alert_email
 
 
 async def run_conflict_detection(db: AsyncSession, user: User) -> List[Conflict]:
@@ -145,4 +147,15 @@ async def run_conflict_detection(db: AsyncSession, user: User) -> List[Conflict]
         db.add(notif)
 
     await db.flush()
+
+    # Fire conflict alert email async (non-blocking)
+    if new_conflicts:
+        critical_count = sum(1 for c in new_conflicts if c.severity == ConflictSeverity.CRITICAL)
+        asyncio.create_task(send_conflict_alert_email(
+            to=user.email,
+            full_name=user.full_name,
+            conflict_count=len(new_conflicts),
+            critical_count=critical_count,
+        ))
+
     return new_conflicts

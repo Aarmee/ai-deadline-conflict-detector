@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+import asyncio
 
 from app.db.session import get_db
 from app.schemas.auth import RegisterRequest, LoginRequest, TokenResponse, RefreshRequest, UserResponse, UserUpdate
 from app.schemas.tasks import PasswordChangeRequest
 from app.services.user_service import UserService
+from app.services.email_service import send_welcome_email
 from app.core.security import (
     verify_password, hash_password, create_access_token,
     create_refresh_token, decode_token, get_current_user
@@ -29,6 +31,8 @@ async def register(data: RegisterRequest, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Email already registered")
 
     user = await UserService.create(db, data)
+    # Fire welcome email async (non-blocking)
+    asyncio.create_task(send_welcome_email(user.email, user.full_name))
     return TokenResponse(
         access_token=create_access_token({"sub": str(user.id)}),
         refresh_token=create_refresh_token({"sub": str(user.id)}),
