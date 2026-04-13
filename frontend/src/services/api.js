@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const BASE_URL = import.meta.env.VITE_API_URL || '/api/v1'
+
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: BASE_URL,
   timeout: 60000,  // 60s for AI calls
 })
 
@@ -102,7 +104,7 @@ export const aiAPI = {
 
 // ── Admin ─────────────────────────────────────────────────
 const adminApi = axios.create({
-  baseURL: '/api/v1',
+  baseURL: BASE_URL,
   timeout: 30000,
 })
 adminApi.interceptors.request.use(config => {
