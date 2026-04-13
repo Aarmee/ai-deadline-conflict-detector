@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str = ""
     EMAILS_ENABLED: bool = False  # set True in .env once SMTP creds are added
 
+    # Frontend URL (used in emails)
+    FRONTEND_URL: str = "http://localhost:5173"
+
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
 
     @property
