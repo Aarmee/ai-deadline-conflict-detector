@@ -48,7 +48,7 @@ async def _send(to: str, subject: str, html: str) -> None:
             port=settings.SMTP_PORT,
             username=settings.SMTP_USER,
             password=settings.SMTP_PASSWORD,
-            start_tls=True,
+            use_tls=True,   # port 465 SSL — works on Render free tier
         )
         logger.info(f"Email sent: '{subject}' → {to}")
     except Exception as e:
