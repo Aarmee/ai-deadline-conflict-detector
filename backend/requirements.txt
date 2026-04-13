@@ -17,10 +17,10 @@ pydantic==2.7.1
 pydantic-settings==2.2.1
 email-validator==2.1.1
 
-# ── Machine Learning (Python 3.14 compatible versions) ────
-scikit-learn==1.6.1
-pandas==2.2.2
-numpy==2.2.4
+# ── Machine Learning (pre-built wheels, Python 3.11 compatible) ───
+scikit-learn==1.4.2
+pandas==2.2.1
+numpy==1.26.4
 joblib==1.4.2
 
 # ── Utilities ─────────────────────────────────────────────
