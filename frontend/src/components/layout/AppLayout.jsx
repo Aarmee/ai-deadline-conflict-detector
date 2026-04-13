@@ -14,9 +14,9 @@ import styles from './AppLayout.module.css'
 
 const NAV = [
   { to: '/dashboard',       icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/briefing',        icon: Sun,             label: 'Daily Briefing', badge: 'NEW' },
+  { to: '/briefing',        icon: Sun,             label: 'Daily Briefing' },
   { to: '/tasks',           icon: CheckSquare,     label: 'Tasks' },
-  { to: '/kanban',          icon: Kanban,          label: 'Kanban Board', badge: 'NEW' },
+  { to: '/kanban',          icon: Kanban,          label: 'Kanban Board' },
   { to: '/conflicts',       icon: AlertTriangle,   label: 'Conflicts' },
   { to: '/recommendations', icon: Sparkles,        label: 'AI Schedule' },
   { to: '/analytics',       icon: BarChart3,       label: 'Analytics' },
