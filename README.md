@@ -305,16 +305,6 @@ pytest --cov=app tests/
 
 ---
 
-## 👥 Team
-
-| Member | Contribution |
-|---|---|
-| Aarmee | ML Risk Prediction, AI Schedule Optimizer, Daily Briefing, Admin Panel |
-| Mardav | Authentication, Profile, Email System |
-| Richa | Dashboard, Tasks, Kanban, Dark/Light Mode |
-| Aryamik | Conflict Detection, Notifications, Analytics |
-| Imraan | Database, API Integration, Backend Architecture |
-
 ---
 
 ## 📄 License
